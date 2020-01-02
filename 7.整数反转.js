@@ -25,7 +25,7 @@ var reverse = function(x) {
 // @lc code=end
 console.log(reverse(number))
 
-// 较好解法
+// 不用转化字符串的解法
 const number = -123;
 var reverse = function(x) {
   var bb = 0;
@@ -33,9 +33,9 @@ var reverse = function(x) {
   var min = (-1)*Math.pow(2,31);
   while (x) {
       bb = bb*10+x%10;
-      x = x/10>>0;
+      x = x/10>>0; // 取整，最好使用Math.floor等数学方法处理，没有越界问题
   }
-  if(bb<min || bb > max){
+  if(bb < min || bb > max){
      bb = 0;
   }
   return bb
