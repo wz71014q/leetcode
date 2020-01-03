@@ -73,6 +73,41 @@
  * @param {string} s
  * @return {number}
  */
+// 优化后的代码
+var romanToInt = function(s) {
+  const dic = {
+    I: 1,
+    IV: 4,
+    V: 5,
+    IX: 9,
+    X: 10,
+    XL: 40,
+    L: 50,
+    XC: 90,
+    C: 100,
+    CD: 400,
+    D: 500,
+    CM: 900,
+    M: 1000
+  }
+  let str = s;
+  let result = 0;
+  const reg = /C+[M|D]|X+[L|C]|I+[V|X]/g; // 小数在大数左边的情况
+  if (reg.test(str)) {
+    const subItem = str.match(reg);
+    subItem.forEach(item => {
+      result += dic[item]
+    })
+  }
+  str = str.replace(reg, '');
+  str.split('').forEach(item => {
+    result += dic[item]
+  })
+  return result;
+};
+// @lc code=end
+// 第一次做出来的解法：
+
 var romanToInt = function(s) {
   const dic = {
     I: 1,
@@ -132,5 +167,3 @@ var calculator = function (reg, str, dic, sub) {
     strCache
   };
 }
-// @lc code=end
-
