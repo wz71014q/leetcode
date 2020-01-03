@@ -74,7 +74,63 @@
  * @return {number}
  */
 var romanToInt = function(s) {
-    
+  const dic = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000
+  }
+  let str = s;
+  let result = 0;
+  const reg = {
+    0: /C+[M|D]|X+[L|C]|I+[V|X]/, // 小数在大数左边的情况
+    1: /[M|D]C{1,3}|[C|L]X{1,3}|[X|V]I{1,3}|(?<![I|V|X|L|C|D|M])II{1,2}(?![I|V|X|L|C|D|M])/, // 小数在大数右边的情况
+    2: /I|V|X|L|C|D|M/ // 单个字符
+  }
+  for (let i = 0; i < 3; i++) {
+    const { number, strCache } = calculator(reg[i], str, dic, i === 0);
+    result += number;
+    str = strCache;
+  }
+  return result;
 };
+var replaceString = function(reg, str) {
+  const result = {};
+  if (!reg.test(str)) {
+    return false;
+  }
+  result.matchItem = str.match(reg)[0];
+  result.str = str.replace(reg, '-');
+  return result;
+}
+var toNumber = function(dic, str, sub = false) {
+  const strArray = str.split('');
+  let result = 0;
+  if (sub) {
+    result = dic[strArray[1]] - dic[strArray[0]];
+  } else {
+    strArray.forEach(item => {
+      result += dic[item]
+    })
+  }
+  return result;
+}
+var calculator = function (reg, str, dic, sub) {
+  let number = 0;
+  let matchItem;
+  let strCache = str;
+  while (replaceString(reg, strCache)) {
+    matchItem = replaceString(reg, strCache).matchItem;
+    strCache = replaceString(reg, strCache).str;
+    number += toNumber(dic, matchItem, sub);
+  }
+  return {
+    number,
+    strCache
+  };
+}
 // @lc code=end
 
