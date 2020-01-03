@@ -167,3 +167,30 @@ var calculator = function (reg, str, dic, sub) {
     strCache
   };
 }
+
+// leetcode执行时间最快代码
+// 这个代码默认输入的是正确的罗马数字
+var romanToInt = function(s) {
+  const maps = {
+      I: 1,
+      V: 5,
+      X: 10,
+      L: 50,
+      C: 100,
+      D: 500,
+      M: 1000
+  }
+  let ins = 0;
+  let pre = maps[s[0]];
+  for (let i = 1; i < s.length; i++) {
+      const value = maps[s[i]]
+      if (value > pre) {
+          ins -= pre
+      } else {
+          ins += pre
+      }
+      pre = value
+  }
+  ins += pre;
+  return ins
+};
