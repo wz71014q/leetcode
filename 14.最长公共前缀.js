@@ -41,11 +41,11 @@ const arr = ["flower","flow","flight", "right", "raw"];
  * @param {string[]} strs
  * @return {string}
  */
+/* eslint-disable */
 var longestCommonPrefix = function (strs) {
   if (strs.length < 1) {
     return ''
   }
-  const filterArray = []
   let result = ''
   let maxLength = strs[0].length
   for (let i = 0; i < strs.length; i += 1) {
@@ -53,19 +53,12 @@ var longestCommonPrefix = function (strs) {
       maxLength = strs[i].length
     }
   }
-  for (let i = 0; i < strs.length; i += 1) {
-    filterArray[i] = []
-    for (let j = 0; j < maxLength; j += 1) {
-      filterArray[i].push(strs[i].slice(j, j + 1))
-    }
-  }
   for (let i = 0; i < maxLength; i += 1) {
     let headWord = []
-    for (let j = 0; j < filterArray.length; j += 1) {
-      headWord.push(filterArray[j][i])
+    for (let j = 0; j < strs.length; j += 1) {
+      headWord.push(strs[j].slice(i, i+1))
     }
     result += lengStr(headWord)
-    console.log('result', result)
     if (/false/g.test(result)) {
       result = result.replace(/false/g, "")
       break
