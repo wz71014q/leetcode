@@ -35,14 +35,55 @@
  * 所有输入只包含小写字母 a-z 。
  * 
  */
-
+const arr = ["flower","flow","flight", "right", "raw"];
 // @lc code=start
 /**
  * @param {string[]} strs
  * @return {string}
  */
-var longestCommonPrefix = function(strs) {
-    
-};
+var longestCommonPrefix = function (strs) {
+  if (strs.length < 1) {
+    return ''
+  }
+  const filterArray = []
+  let result = ''
+  let maxLength = strs[0].length
+  for (let i = 0; i < strs.length; i += 1) {
+    if (strs[i].length > maxLength) {
+      maxLength = strs[i].length
+    }
+  }
+  for (let i = 0; i < strs.length; i += 1) {
+    filterArray[i] = []
+    for (let j = 0; j < maxLength; j += 1) {
+      filterArray[i].push(strs[i].slice(j, j + 1))
+    }
+  }
+  for (let i = 0; i < maxLength; i += 1) {
+    let headWord = []
+    for (let j = 0; j < filterArray.length; j += 1) {
+      headWord.push(filterArray[j][i])
+    }
+    result += lengStr(headWord)
+    console.log('result', result)
+    if (/false/g.test(result)) {
+      result = result.replace(/false/g, "")
+      break
+    }
+  }
+  return result
+}
+
+function lengStr(strArray) {
+  let result = strArray[0]
+  for (let j = 0; j < strArray.length; j += 1) {
+    if (strArray[j] !== result) {
+      result = false
+      break;
+    }
+  }
+  return result
+}
 // @lc code=end
+console.log('str = ', longestCommonPrefix(strsArr))
 
