@@ -48,11 +48,13 @@ var longestCommonPrefix = function (strs) {
   }
   let result = ''
   let maxLength = strs[0].length
+  // 第一重循环获取最长字符串
   for (let i = 0; i < strs.length; i += 1) {
     if (strs[i].length > maxLength) {
       maxLength = strs[i].length
     }
   }
+  // 第二个嵌套循环，从头开始比较每个字符串的第一个(第n个)字符是否相同
   for (let i = 0; i < maxLength; i += 1) {
     let headWord = []
     for (let j = 0; j < strs.length; j += 1) {
@@ -80,3 +82,16 @@ function lengStr(strArray) {
 // @lc code=end
 console.log('str = ', longestCommonPrefix(strsArr))
 
+// 40ms解法，从后往前逐个排除
+var longestCommonPrefix = function(strs) {
+  if (!strs.length) return '';
+
+  let commonStr = strs;
+
+  let maxLength = strs.length
+
+  for (let i = 1; i < strs.length; i++) {
+    commonStr[i].padStart()
+  }
+  return commonStr;
+}
