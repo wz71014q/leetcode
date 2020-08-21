@@ -39,5 +39,12 @@
 var mergeTwoLists = function(l1, l2) {
     
 };
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
+const linked = new ListNode(1)
+linked.next = new ListNode(2)
+console.log(linked)
 // @lc code=end
 
