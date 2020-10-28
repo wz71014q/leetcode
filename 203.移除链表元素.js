@@ -35,9 +35,44 @@
  * @param {ListNode} head
  * @param {number} val
  * @return {ListNode}
+ * @description 时间复杂度O(n)，空间复杂度O(1)
  */
 var removeElements = function(head, val) {
-
+  if (head === null) {
+    return head;
+  }
+  while (head !== null && head.val === val) {
+    head = head.next;
+  }
+  var pre = head;
+  var pointer = head;
+  while (pointer !== null) {
+    if (pointer.val === val) {
+      pre.next = pointer.next;
+    } else {
+      pre = pointer;
+    }
+    pointer = pointer.next;
+  }
+  return head;
 };
 // @lc code=end
-
+// 哨兵节点，时间复杂度O(n)，空间复杂度O(1)
+var removeElements = function (head, val) {
+  if (head === null) {
+    return head;
+  }
+  var sentry = new ListNode(null);
+  sentry.next = head;
+  var pre = sentry;
+  var pointer = sentry;
+  while (pointer !== null) {
+    if (pointer.val === val) {
+      pre.next = pointer.next;
+    } else {
+      pre = pointer;
+    }
+    pointer = pointer.next;
+  }
+  return sentry.next;
+};
