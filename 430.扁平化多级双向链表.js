@@ -109,7 +109,7 @@
 /**
  * @param {Node} head
  * @return {Node}
- * @description 该题容易想到使用递归法做，时间复杂度O(L)——主链表总长度，空间复杂度O(X)——X：子链表层级
+ * @description 该题容易想到使用递归法做，最大时间复杂度O(L)——节点总数，空间复杂度O(X)——X：子链表层级
  * 官方答案思路一样，只是方法名称叫深度优先遍历，以二叉树的思维结题，时间复杂度和空间复杂度都是O(n)?
  */
 var flatten = function (head) {
