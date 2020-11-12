@@ -107,4 +107,29 @@ var maxSlidingWindow = function (nums, k) {
   return result;
 };
 // @lc code=end
-
+/**
+ * 1、用双向队列维护窗口
+ * 2、滑动窗口，移除窗口中第一位数据
+ * 3、新添加数据与窗口中的数据比较，保证窗口中第一位数据为最大值
+ */
+var maxSlidingWindow = function(nums, k) {
+  if (!nums || nums.length === 0) {
+      return []
+  }
+  const res = [];
+  const windows = [];
+  for(let i = 0; i < nums.length; i++) {
+      const value = nums[i];
+      if (i >= k && windows[0] <= i - k) {
+          windows.shift();
+      }
+      while(value > nums[windows[windows.length - 1]]) {
+          windows.pop();
+      }
+      windows.push(i);
+      if (i >= (k - 1)) {
+          res.push(nums[windows[0]]);
+      }
+  }
+  return res;
+};
