@@ -111,6 +111,7 @@ var maxSlidingWindow = function (nums, k) {
  * 1、用双向队列维护窗口
  * 2、滑动窗口，移除窗口中第一位数据
  * 3、新添加数据与窗口中的数据比较，保证窗口中第一位数据为最大值
+ * 时间复杂度O(n)，空间复杂度O(n)
  */
 var maxSlidingWindow = function(nums, k) {
   if (!nums || nums.length === 0) {
@@ -132,4 +133,77 @@ var maxSlidingWindow = function(nums, k) {
       }
   }
   return res;
+};
+// 双向扫描法，先将数组分成n/k块，找出每个块内最大值，时间复杂度O(N), 空间复杂度O(N)
+/**
+ * 假设题目是：给定一个数组，分为k块，有一窗口宽度为k，求窗口所在的两块区域最大值
+ * 输入[3, 1, 5, 7, 9, 1, 2, 5, 6, 3, 7], k = 3
+ * 分块：
+ * [3, 1, 5], [7, 9, 1], [2, 5, 6], [3, 7]
+ * 最大值：
+ * [5, 5, 5], [9, 9, 9], [6, 6, 6], [7, 7]
+ * 假设窗口位置：
+ * [5, 5, 5]------------------------------
+ * 那么窗口内最大值是5；
+ * 假设窗口位置：
+ * -------[5,  9,  9]---------------------
+ * 那么窗口内最大值是9
+ * 这个最大值数组我们一眼可以看出最大值，然后写出来。但是实际运算时需要每次查找窗口内最大值，所以：
+ * 输入[3, 1, 5, 7, 9, 1, 2, 5, 6, 3, 7], k = 3
+ * 分块：
+ * [3, 1, 5], [7, 9, 1], [2, 5, 6], [3, 7]
+ * 最大值：
+ * [5, 5, 5], [9, 9, 9], [6, 6, 6], [7, 7]
+ * 遍历：
+ * ---k次---, ---k次---, ---k次---, ---k次---
+ * 时间复杂度：Math.pow(k, Math.ceil(n/k))
+ *
+ * 以上题来理解两端同时扫描:
+ * 从左往右：扫描时在同一块内，遇到比自己大的数就替换掉，保障右边的值一定≥左边的值
+ * 从右往左：扫描时在同一块内，遇到比自己大的数就替换掉，保障左边的值一定≥右边的值
+ * 输入：  [3, 1, 5, 7, 9, 1, 2, 5, 6, 3, 7], k = 3
+ * 分块：  [3, 1, 5], [7, 9, 1], [2, 5, 6], [3, 7]
+ * 从左往右：
+ * left:  [3, 3, 5], [7, 9, 9], [2, 5, 6], [3, 7]
+ * 从右往左：
+ * right: [5, 5, 5], [9, 9, 1], [6, 6, 6], [7, 7]
+ * 窗口：
+ * window:[       ]------------------------------, 将left最右边和right最左边的值比大小, 即5跟5对比，所以5是最大值
+ * window:----[        ]-------------------------, 将left最右边和right最左边的值比大小, 即7跟5对比，所以7是最大值
+ * 最大值: [ 5, 7, 9, 9, 9, 5, 6, 6, 7 ]
+ */
+var maxSlidingWindow = function (nums, k) {
+  if (k <= 0) {
+    return nums;
+  }
+  var numsLength = nums.length;
+  var left = [];
+  var right = [];
+  var result = [];
+  var leftblockMax = nums[0];
+  var rightblockMax = nums[numsLength - 1];
+  for (var i = 0; i < numsLength; i++) { // 求left和right
+    if (i % k == 0) {
+      leftblockMax = nums[i];
+    }
+    if (i > 0 && (numsLength - i) % k == 0) {
+      rightblockMax = nums[numsLength - 1 - i];
+    }
+    if (leftblockMax < nums[i]) {
+      leftblockMax = nums[i];
+    }
+    if (i > 0 && rightblockMax < nums[numsLength - 1 - i]) {
+      rightblockMax = nums[numsLength - 1 - i];
+    }
+    left.push(leftblockMax);
+    right.push(rightblockMax);
+  }
+  for (var i = 0; i < numsLength; i++) {
+    if (i < k) {
+      i = k - 1;
+    }
+    // right数组是反过来的，所以需要计算index
+    result.push(Math.max(left[i], right[numsLength - 1 - (i - k + 1)]));
+  }
+  return result;
 };
