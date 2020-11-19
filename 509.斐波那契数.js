@@ -74,6 +74,7 @@ var fib = function(N) {
 };
 // @lc code=end
 // 跟方法一同一个思路，但是没有用数组存数列，时间复杂度O(N) 空间复杂度O(1)。注意斐波那契数列第一项是f(0)
+// 该方法属于动态规划法
 var fib = function(N) {
   if (N <= 1 || N > 30) {
     return N;
