@@ -93,10 +93,25 @@ var climbStairs = function (n) {
 };
 // @lc code=end
 
-// 递归法，数字大了会导致内存溢出
+// 递归法，时间复杂度O(Math.pow(2, n)), 空间复杂度O(N)，数字大了会导致内存溢出
 var climbStairs = function (n) {
   if (n <= 2) {
     return n;
   }
   return climbStairs(n - 2) + climbStairs(n - 1);
+};
+// 动态规划，时间复杂度O(n), 空间复杂度O(1)
+var climbStairs  = function (n) {
+  if (n <= 2) {
+    return n;
+  }
+  var n1 = 1;
+  var n2 = 2;
+  var result = 0;
+  for (var i = 2; i < n; i++) {
+    result = n1 + n2;
+    n1 = n2;
+    n2 = result;
+  }
+  return result;
 };
