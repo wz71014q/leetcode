@@ -80,12 +80,29 @@
 /**
  * @param {TreeNode} root
  * @return {number[]}
+ * 迭代，时间复杂度O(n)，空间复杂度O(n)
  */
-var preorderTraversal = function(root) {
-    
+var preorderTraversal = function (root) {
+  if (!root || !root.val) {
+    return [];
+  }
+  var stack = []; // 递归隐性使用的栈拿出来进行维护
+  var result = [];
+  stack.push(root);
+  while (stack.length) {
+    var current = stack.pop();
+    result.push(current.val);
+    if (current.right) {
+      stack.push(current.right);
+    }
+    if (current.left) {
+      stack.push(current.left);
+    }
+  }
+  return result;
 };
 // @lc code=end
-// 递归
+// 递归，时间复杂度O(n)，空间复杂度O(n)
 var preorderTraversal = function(root) {
   if (!root || !root.val) {
     return [];
