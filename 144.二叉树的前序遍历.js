@@ -83,7 +83,7 @@
  * 迭代，时间复杂度O(n)，空间复杂度O(n)
  */
 var preorderTraversal = function (root) {
-  if (!root || !root.val) {
+  if (!root) {
     return [];
   }
   var stack = []; // 递归隐性使用的栈拿出来进行维护
@@ -104,7 +104,7 @@ var preorderTraversal = function (root) {
 // @lc code=end
 // 递归，时间复杂度O(n)，空间复杂度O(n)
 var preorderTraversal = function(root) {
-  if (!root || !root.val) {
+  if (!root) {
     return [];
   }
   var result = [];

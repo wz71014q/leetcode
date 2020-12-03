@@ -82,7 +82,7 @@
  */
 // 递归，时间复杂度O(n), 空间复杂度O(n)
 var inorderTraversal = function (root) {
-  if (!root || !root.val) {
+  if (!root) {
     return [];
   }
   var result = [];
@@ -104,7 +104,7 @@ var inorderTraversal = function (root) {
 // @lc code=end
 // 迭代，时间复杂度O(n), 空间复杂度O(n)
 var inorderTraversal = function (root) {
-  if (!root || !root.val) {
+  if (!root) {
     return [];
   }
   var stack = [];
@@ -119,6 +119,5 @@ var inorderTraversal = function (root) {
     result.push(current.val);
     current = current.right;
   }
-  console.log(stack);
   return result;
 };

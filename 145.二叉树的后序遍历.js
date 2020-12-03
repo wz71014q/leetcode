@@ -2,6 +2,7 @@
  * @lc app=leetcode.cn id=145 lang=javascript
  *
  * [145] 二叉树的后序遍历
+ * Binary Tree Postorder Traversal
  *
  * https://leetcode-cn.com/problems/binary-tree-postorder-traversal/description/
  *
@@ -45,7 +46,7 @@
  */
 // 递归，时间复杂度O(n), 空间复杂度O(n)
 var postorderTraversal = function (root) {
-  if (!root || !root.val) {
+  if (!root) {
     return [];
   }
   var result = [];
@@ -67,7 +68,7 @@ var postorderTraversal = function (root) {
 // @lc code=end
 // 迭代，时间复杂度O(n), 空间复杂度O(n)
 var postorderTraversal = function (root) {
-  if (!root || !root.val) {
+  if (!root) {
     return [];
   }
   var stack = [];
