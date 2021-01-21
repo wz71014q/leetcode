@@ -113,3 +113,6 @@ console.log(JSON.stringify(binaryTree));
 //     }
 //   }
 // }
+// 前序遍历：根左右
+// 中序遍历：左根右
+// 后序遍历：左右根
