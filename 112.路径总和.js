@@ -53,16 +53,16 @@ var hasPathSum = function(root, sum) {
     return false;
   }
   var stack = [];
-  var dictionary = new Set(); // 记录是否已经走过该条路径
+  var collection = new Set(); // 记录是否已经走过该条路径, Set是值的集合，不含key，Map才是字典
   stack.push(root);
   while (stack.length) {
     var current = stack[stack.length - 1];
-    if (current.left && !dictionary.has(current.left)) { // 左边路径
+    if (current.left && !collection.has(current.left)) { // 左边路径
       stack.push(current.left);
-      dictionary.add(current.left);
-    } else if (current.right && !dictionary.has(current.right)) { // 右边路径
+      collection.add(current.left);
+    } else if (current.right && !collection.has(current.right)) { // 右边路径
       stack.push(current.right);
-      dictionary.add(current.right);
+      collection.add(current.right);
     } else if (!current.left && !current.right) { // 叶子节点
       var currentSum = 0
       for (var i = 0; i < stack.length; i++) {

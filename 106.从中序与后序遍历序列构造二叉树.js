@@ -46,6 +46,8 @@
  * @param {number[]} inorder
  * @param {number[]} postorder
  * @return {TreeNode}
+ * 时间复杂度：O(n)，其中 n 是树中的节点个数。
+ * 空间复杂度：O(n)。
  */
 var buildTree = function (inorder, postorder) {
   var getTree = function (childInorder, childPostorder) {
@@ -82,4 +84,33 @@ var buildTree = function (inorder, postorder) {
   return getTree(inorder, postorder);
 };
 // @lc code=end
-
+// 采用双指针维护左右子树的范围
+var buildTree = function (inorder, postorder) {
+  let currentRootIndex;
+  const idx_map = new Map();
+  // 从后序遍历的最后一个元素开始
+  currentRootIndex = postorder.length - 1;
+  // 建立（元素，下标）键值对的哈希表
+  inorder.forEach((val, idx) => {
+    idx_map.set(val, idx);
+  });
+  const helper = (in_left, in_right) => {
+    // 如果这里没有节点构造二叉树了，就结束
+    if (in_left > in_right) {
+      return null;
+    }
+    // 选择 currentRootIndex 位置的元素作为当前子树根节点
+    const root_val = postorder[currentRootIndex];
+    const currentRoot = new TreeNode(root_val);
+    // 根据 currentRoot 所在位置分成左右两棵子树
+    const index = idx_map.get(root_val);
+    // 下标减一
+    currentRootIndex--;
+    // 构造右子树
+    currentRoot.right = helper(index + 1, in_right);
+    // 构造左子树
+    currentRoot.left = helper(in_left, index - 1);
+    return currentRoot;
+  };
+  return helper(0, inorder.length - 1);
+};
