@@ -57,45 +57,74 @@
  */
  var floodFill = function(image, sr, sc, newColor) {
   const history = new Map();
-  const stack = [`${sr}-${sc}`];
+  const stack = [[sr, sc]];
   const originColor = image[sr][sc];
-  let current = `${sr}-${sc}`;
+  if (originColor == newColor) {
+    return image;
+  }
+  let current = [sr, sc];
   let top, right, bottom, left;
   let row, col;
   while (stack.length) {
-    while (image[current.split('-')[0]] !== undefined && image[current.split('-')[0]][current.split('-')[1]] !== undefined && !history.has(current)) {
-      history.set(current, 1);
-      let currentArray = current.split('-');
-      row = parseInt(currentArray[0]);
-      col = parseInt(currentArray[1]);
+    while (image[current[0]] !== undefined && image[current[0]][current[1]] !== undefined && !history.has(`${current[0]}${current[1]}`)) {
+      row = parseInt(current[0]);
+      col = parseInt(current[1]);
+      history.set(`${row}${col}`, 1);
       top = row - 1;
       right = col + 1;
       bottom = row + 1;
       left = col - 1;
       if (image[top] !== undefined && image[top][col] == originColor) { // 上
-        stack.push(`${top}-${col}`);
-        current = `${top}-${col}`;
+        stack.push([top, col]);
+        current = [top, col];
       }
       if (image[bottom] !== undefined && image[bottom][col] == originColor) { // 右
-        stack.push(`${bottom}-${col}`);
-        current = `${bottom}-${col}`;
+        stack.push([bottom, col]);
+        current = [bottom, col];
       }
       if (image[row] !== undefined && image[row][right] == originColor) { // 下
-        stack.push(`${row}-${right}`);
-        current = `${row}-${right}`;
+        stack.push([row, right]);
+        current = [row, right];
       }
       if (image[row] !== undefined && image[row][left] == originColor) { // 左
-        stack.push(`${row}-${left}`);
-        current = `${row}-${left}`;
+        stack.push([row, left]);
+        current = [row, left];
       }
     }
     current = stack.pop();
-    let currentArray = current.split('-');
-    row = parseInt(currentArray[0]);
-    col = parseInt(currentArray[1]);
+    row = parseInt(current[0]);
+    col = parseInt(current[1]);
     image[row][col] = newColor;
   }
   return image;
 };
 // @lc code=end
 
+// BFS
+function floodFill(image, sr, sc, newColor) {
+  var dx = [1, 0, 0, -1];
+  var dy = [0, 1, -1, 0];
+  var currColor = image[sr][sc];
+  if (currColor == newColor) {
+    return image;
+  }
+  var n = image.length,
+    m = image[0].length;
+  let queue = [];
+  queue.push([sr, sc]);
+  image[sr][sc] = newColor;
+  while (queue.length) {
+    let cell = queue.shift();
+    var x = cell[0],
+      y = cell[1];
+    for (var i = 0; i < 4; i++) {
+      var mx = x + dx[i],
+        my = y + dy[i];
+      if (mx >= 0 && mx < n && my >= 0 && my < m && image[mx][my] == currColor) {
+        queue.push([mx, my]);
+        image[mx][my] = newColor;
+      }
+    }
+  }
+  return image;
+}
