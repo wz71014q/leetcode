@@ -3,17 +3,14 @@ var selectionsort = function(nums) {
   if (!nums.length) {
     return;
   }
-  let min;
   for (let i = 0; i < nums.length; i++) {
-    min = nums[i];
     for (let j = i; j < nums.length; j++) {
-      if (nums[j] < min) {
+      if (nums[j] < nums[i]) {
         let temp = nums[j];
-        nums[j] = min;
-        min = temp;
+        nums[j] = nums[i];
+        nums[i] = temp;
       }
     }
-    nums[i] = min;
   }
   return nums;
 };
