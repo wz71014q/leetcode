@@ -81,17 +81,3 @@ function lengStr(strArray) {
 }
 // @lc code=end
 console.log('str = ', longestCommonPrefix(strsArr))
-
-// 40ms解法，从后往前逐个排除
-var longestCommonPrefix = function(strs) {
-  if (!strs.length) return '';
-
-  let commonStr = strs;
-
-  let maxLength = strs.length
-
-  for (let i = 1; i < strs.length; i++) {
-    commonStr[i].padStart()
-  }
-  return commonStr;
-}
