@@ -57,5 +57,21 @@ var reverseList = function(head) {
   }
   return middle;
 };
+
+// 头插法，将当前节点添加到最前面
+var reverseList = function(head) {
+  if (head === null) {
+    return head;
+  }
+  let fast = head;
+  let slow = null;
+  while (fast) {
+    let temp = fast.next;
+    fast.next = slow;
+    slow = fast;
+    fast = temp;
+  }
+  return slow;
+};
 // @lc code=end
 
