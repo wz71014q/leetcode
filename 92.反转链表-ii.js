@@ -53,4 +53,23 @@
   }
   return guard.next;
 };
+
+// 头插法，不用遍历所有节点
+var reverseBetween = function(head, left, right) {
+  const guard = new ListNode(-1);
+  guard.next = head;
+  let pre = guard;
+  for (let i = 0; i < left - 1; i++) {
+    pre = pre.next;
+  }
+
+  let cur = pre.next;
+  for (let i = 0; i < right - left; i++) {
+    const next = cur.next;
+    cur.next = next.next;
+    next.next = pre.next;
+    pre.next = next;
+  }
+  return guard.next;
+};
 // @lc code=end
