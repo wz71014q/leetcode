@@ -32,10 +32,11 @@
 /**
  * @param {number[]} nums
  * @return {number}
- * 最近在看动态规划问题，这题专门用动态规划的思想去做，但是状态转移方程写错了，我想的是从中间开始，向两边累加，但是没做出来(目前为止唯一没做出来的，不想再独自想了，有点费时间。其实已经思考过了一段时间，再看答案也可以看懂)
+ * 状态转移方程：
  *           nums[i],           nums[i-1]<=0
  * dp[i] = {
-*/           nums[i-1]+nums[i], nums[i-1] > 0
+ *           nums[i-1]+nums[i], nums[i-1] > 0
+ */
 var maxSubArray = function (nums) {
   if (nums.length <= 0) {
     return 0;
